@@ -37,12 +37,8 @@ const View = (props) => {
             }
         })
         .then(res=>{
-          console.log("axios.delete")
-        //   props.deleteMovie(id)//
-        //   props.setMovies(res.data);//
-        setArticles(res.data)//
- 
-        //   push('/movies')
+        //   console.log("axios.delete")
+            setArticles(res.data)//
         })
         .catch(err => {
           console.log(err)
@@ -50,10 +46,25 @@ const View = (props) => {
     }
 
     const handleEdit = (article) => {
-        // axios.get(`http://localhost:9000/api/movies/${id}`)
-        // .then(res=>{
-        //     setMovie(res.data);
-        // })
+        console.log("Veiw#### : handleEdit  article.id = ", article.id )
+        // console.log("Veiw#### : handleEdit  ids= ", id )
+        
+        axios.put(`http://localhost:5000/api/articles/${article.id}`, article,{
+            headers:{
+                authorization: localStorage.getItem('token')
+            }
+        })
+        .then(res=>{
+            // setMovie(res.data);
+            console.log("handleEdit axios.put", res)
+            setArticles(res.data)//
+            setEditing(false)
+            push('/view');
+        })
+        .catch(err => {
+            //   console.log("axios.delete")
+            // setArticles(res.data)//
+          })
     }
 
     const handleEditSelect = (id)=> {
