@@ -118,8 +118,22 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. Explain what a token is used for.
 
+  * A token is used to authenticate a users credentials. 
+
 2. What steps can you take in your web apps to keep your data secure?
+
+  *  user authentication,
+  *  Private route
 
 3. Describe how web servers work.
 
+  * The server connects to provide certain services on the internet. The url is their address, and we access them through the URL.
+
 4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+
+    * CRUD : create, read, update and delete.
+    * Create - Post,  the transmission of new data to an API 
+    * Read - Get get allows for information to be accessed
+    * Update - Put allows for the updating the API
+    * Delete - Delete  removes that particular data form an API
