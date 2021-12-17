@@ -23,23 +23,24 @@ const View = (props) => {
     const handleEditCancel = ()=>{
         setEditing(false);
     }
+    console.log("View")
 
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>
         <ContentContainer flexDirection="row">
             <ArticleContainer>
-                {
+                {/* {
                     articles.map(article => {
                         return <ArticleDivider key={article.id}>
                             <Article key={article.id} article={article} handleDelete={handleDelete} handleEditSelect={handleEditSelect}/>
                         </ArticleDivider>
                     })
-                }
+                } */}
             </ArticleContainer>
             
-            {
+            {/* {
                 editing && <EditForm editId={editId} handleEdit={handleEdit} handleEditCancel={handleEditCancel}/>
-            }
+            } */}
         </ContentContainer>
     </ComponentContainer>);
 }

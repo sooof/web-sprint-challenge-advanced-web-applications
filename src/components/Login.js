@@ -29,7 +29,7 @@ const Login = () => {
             const {token} = resp.data
             // console.log("token", token)
             localStorage.setItem("token", token)
-            push('/articles')
+            push('/view')
         })
         .catch(err => {
             // console.log(err.response.data)

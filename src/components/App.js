@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import Header from './Header';
 import BloomHeader from './BloomHeader';
+import View from './View';
 import Login from './Login';
-import Logout from './logout';
-import View  from './view';
+import Logout from './Logout';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -19,13 +19,10 @@ const App = () => {
       <RouteContainer>
         <Route exact path="/">
           <Login/>
-        </Route>          
-        <PrivateRoute  path="/articles">
-          <View/>
-        </PrivateRoute>    
-        <PrivateRoute  path="/logout">
-          <Logout/>
-        </PrivateRoute>    
+        </Route>     
+        <Route path="/login" component={Login} />      
+        <PrivateRoute path="/logout" component={Logout} />
+        <PrivateRoute path="/view" component={View} />   
       </RouteContainer>
     </AppContainer>
   )
