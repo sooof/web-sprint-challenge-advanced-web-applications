@@ -1,12 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
+const initialFormValues = {
+    username: '',
+    password: '',
+    role: ''
+}
 const Login = () => {
-    
+   const [value, setValue] = useState(initialFormValues)
+   const [error, setError] = useState('');
+   const {push} = useHistory()
+    const handleChange = e => {
+        setValue({
+            ...value,
+            [e.target.name]: e.target.value
+        })
+    }
+    // console.log("Login ", value)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("login")
+        axios.post(`http://localhost:5000/api/login`, value)
+        .then(resp =>{
+            // console.log("Login axios.get resp ", resp)
+            const {token} = resp.data
+            // console.log("token", token)
+            localStorage.setItem("token", token)
+            push('/articles')
+        })
+        .catch(err => {
+            // console.log(err.response.data)
+            setError(err.response.data.error)
+        })
+    }
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
+            <form onSubmit={handleSubmit}>
+            <label>
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={value.username}
+                    onChange={handleChange}
+                />
+            </label>
+            <label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={value.password}
+                    onChange={handleChange}
+                />
+            </label>
+            <label> 
+                <select name="role"
+                        onChange={handleChange}
+                        >
+                    <option value="">---Select your role---</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </label>
+
+            {/* <label>  */}
+                <button id="submit"  >Log in</button>
+            {/* </label> */}
+            <p id="error">{error}</p>
+            </form>
         </ModalContainer>
     </ComponentContainer>);
 }
