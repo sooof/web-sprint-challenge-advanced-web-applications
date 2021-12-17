@@ -1,18 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 import Article from './Article';
 import EditForm from './EditForm';
 
 const View = (props) => {
+    const {push} = useHistory()
     const [articles, setArticles] = useState([]);
     const [editing, setEditing] = useState(false);
     const [editId, setEditId] = useState();
 
+    useEffect(()=> {
+        // const token = localStorage.getItem("token");
+        axios.get(`http://localhost:5000/api/articles`,{
+            headers:{
+                authorization: localStorage.getItem('token')
+            }
+        })
+        .then(resp => {
+            // console.log("articles axios.post resp ", resp.data)
+            setArticles(resp.data)
+            // push('/login');
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, []);
+
     const handleDelete = (id) => {
+        console.log("handleClickDelete id", id)
+        axios.delete(`http://localhost:5000/api/articles/${id}`,{
+            headers:{
+                authorization: localStorage.getItem('token')
+            }
+        })
+        .then(res=>{
+          console.log("axios.delete")
+        //   props.deleteMovie(id)//
+        //   props.setMovies(res.data);//
+        setArticles(res.data)//
+ 
+        //   push('/movies')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     const handleEdit = (article) => {
+        // axios.get(`http://localhost:9000/api/movies/${id}`)
+        // .then(res=>{
+        //     setMovie(res.data);
+        // })
     }
 
     const handleEditSelect = (id)=> {
@@ -29,18 +70,18 @@ const View = (props) => {
         <HeaderContainer>View Articles</HeaderContainer>
         <ContentContainer flexDirection="row">
             <ArticleContainer>
-                {/* {
+                {
                     articles.map(article => {
                         return <ArticleDivider key={article.id}>
                             <Article key={article.id} article={article} handleDelete={handleDelete} handleEditSelect={handleEditSelect}/>
                         </ArticleDivider>
                     })
-                } */}
+                }
             </ArticleContainer>
             
-            {/* {
+            {
                 editing && <EditForm editId={editId} handleEdit={handleEdit} handleEditCancel={handleEditCancel}/>
-            } */}
+            }
         </ContentContainer>
     </ComponentContainer>);
 }
