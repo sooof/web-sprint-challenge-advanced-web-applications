@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
+import axiosWithAuth from '../utils/axiosWithAuth';
 import Article from './Article';
 import EditForm from './EditForm';
 
@@ -31,11 +32,13 @@ const View = (props) => {
 
     const handleDelete = (id) => {
         console.log("handleClickDelete id", id)
-        axios.delete(`http://localhost:5000/api/articles/${id}`,{
-            headers:{
-                authorization: localStorage.getItem('token')
-            }
-        })
+        // axios.delete(`http://localhost:5000/api/articles/${id}`,{
+        //     headers:{
+        //         authorization: localStorage.getItem('token')
+        //     }
+        // })
+        axiosWithAuth()
+        .delete(`/articles/${id}`)
         .then(res=>{
         //   console.log("axios.delete")
             setArticles(res.data)//
@@ -49,11 +52,13 @@ const View = (props) => {
         console.log("Veiw#### : handleEdit  article.id = ", article.id )
         // console.log("Veiw#### : handleEdit  ids= ", id )
         
-        axios.put(`http://localhost:5000/api/articles/${article.id}`, article,{
-            headers:{
-                authorization: localStorage.getItem('token')
-            }
-        })
+        // axios.put(`http://localhost:5000/api/articles/${article.id}`, article,{
+        //     headers:{
+        //         authorization: localStorage.getItem('token')
+        //     }
+        // })
+        axiosWithAuth()
+        .put(`/articles/${article.id}`, article)
         .then(res=>{
             // setMovie(res.data);
             console.log("handleEdit axios.put", res)

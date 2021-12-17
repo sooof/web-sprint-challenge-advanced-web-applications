@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 const initialArticle = {
     id:"",
@@ -15,13 +16,15 @@ const EditForm = (props)=> {
     const {handleEdit, handleEditCancel, editId} = props;
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/articles/${editId}`,{
-            headers:{
-                authorization: localStorage.getItem('token')
-            }
-        })
+        // axios.get(`http://localhost:5000/api/articles/${editId}`,{
+        //     headers:{
+        //         authorization: localStorage.getItem('token')
+        //     }
+        // })
+        axiosWithAuth()
+        .get(`/articles/${editId}`)
         .then(res=>{
-            console.log("EditForm useEffect", res.data) 
+            // console.log("EditForm useEffect", res.data) 
             setArticle(res.data)//
         })
     },[])
