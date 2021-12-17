@@ -5,6 +5,11 @@ import styled from 'styled-components';
 import Header from './Header';
 import BloomHeader from './BloomHeader';
 import Login from './Login';
+import Logout from './logout';
+import View  from './view';
+import PrivateRoute from './PrivateRoute';
+
+
 
 const App = () => {
   return (
@@ -15,6 +20,12 @@ const App = () => {
         <Route exact path="/">
           <Login/>
         </Route>          
+        <PrivateRoute  path="/view">
+          <View/>
+        </PrivateRoute>    
+        <PrivateRoute  path="/logout">
+          <Logout/>
+        </PrivateRoute>    
       </RouteContainer>
     </AppContainer>
   )
