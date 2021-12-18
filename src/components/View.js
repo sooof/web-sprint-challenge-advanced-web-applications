@@ -15,11 +15,13 @@ const View = (props) => {
 
     useEffect(()=> {
         // const token = localStorage.getItem("token");
-        axios.get(`http://localhost:5000/api/articles`,{
-            headers:{
-                authorization: localStorage.getItem('token')
-            }
-        })
+        // axios.get(`http://localhost:5000/api/articles`,{
+        //     headers:{
+        //         authorization: localStorage.getItem('token')
+        //     }
+        // })
+        axiosWithAuth()
+        .get(`/articles`)
         .then(resp => {
             // console.log("articles axios.post resp ", resp.data)
             setArticles(resp.data)
@@ -50,6 +52,8 @@ const View = (props) => {
 
     const handleEdit = (article) => {
         console.log("Veiw#### : handleEdit  article.id = ", article.id )
+        console.log("Veiw#### : handleEdit  article.createdOn = ", article.createdOn )
+        console.log("Veiw#### : handleEdit  article.author = ", article.author )
         // console.log("Veiw#### : handleEdit  ids= ", id )
         
         // axios.put(`http://localhost:5000/api/articles/${article.id}`, article,{
